@@ -109,7 +109,7 @@ The website provides:
 After publishing the repository, replace the placeholder below with the final Pages URL:
 
 ```text
-https://YOUR-GITHUB-USERNAME.github.io/YOUR-REPOSITORY-NAME/
+https://samuelson777.github.io/OpenSat-Mission-Lab-Live-GitHub/
 ```
 
 Local preview:
