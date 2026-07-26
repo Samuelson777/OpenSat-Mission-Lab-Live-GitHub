@@ -20,6 +20,7 @@ A static, interactive space-engineering portfolio covering OpenSat Mission Lab r
 
 The browser simulations are simplified educational models. They do not replace the detailed Python engineering project, certified astrodynamics, production security controls, or real spacecraft command systems.
 
+---
 
 [![Version](https://img.shields.io/badge/version-3.1.0-0b7285)](CHANGELOG.md)
 [![Python](https://img.shields.io/badge/python-%E2%89%A53.10-3776AB?logo=python\&logoColor=white)](pyproject.toml)
