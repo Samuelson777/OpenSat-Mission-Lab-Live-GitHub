@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="description" content="OpenSat Mission Lab — an interactive browser-based spacecraft, Earth-observation, mission-operations, platform, and safety-assurance laboratory covering releases v0.1 through v3.1.">
+  <meta name="theme-color" content="#07111f">
+  <title>OpenSat Mission Lab — Live Web Edition</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div class="space-background" aria-hidden="true"><div class="stars"></div><div class="nebula nebula-a"></div><div class="nebula nebula-b"></div></div>
+
+  <header class="topbar">
+    <button class="icon-button mobile-nav-toggle" id="mobileNavToggle" aria-label="Open navigation" aria-expanded="false">☰</button>
+    <a class="brand" href="#overview" aria-label="OpenSat Mission Lab home">
+      <span class="brand-mark" aria-hidden="true">OS</span>
+      <span><strong>OpenSat</strong><small>Mission Lab · Live Web Edition</small></span>
+    </a>
+    <div class="topbar-status">
+      <span class="status-pill"><span class="status-dot"></span><span id="platformState">SIMULATION READY</span></span>
+      <span class="version-pill">v0.1 → v3.1</span>
+      <button class="icon-button" id="themeToggle" aria-label="Toggle theme" title="Toggle theme">◐</button>
+      <button class="button button-primary compact" id="globalLaunch">Run integrated mission</button>
+    </div>
+  </header>
+
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar" aria-label="Application navigation">
+      <nav id="primaryNav">
+        <p class="nav-label">Mission Lab</p>
+        <a href="#overview" data-route="overview" class="nav-item active"><span>⌂</span>Overview</a>
+        <a href="#evolution" data-route="evolution" class="nav-item"><span>↗</span>Release evolution</a>
+        <a href="#orbit" data-route="orbit" class="nav-item"><span>◉</span>Orbit laboratory</a>
+        <a href="#constellation" data-route="constellation" class="nav-item"><span>✦</span>Constellation</a>
+        <a href="#earth-observation" data-route="earth-observation" class="nav-item"><span>◫</span>Earth observation</a>
+        <a href="#spacecraft" data-route="spacecraft" class="nav-item"><span>◇</span>Spacecraft systems</a>
+        <a href="#mission-control" data-route="mission-control" class="nav-item"><span>⌁</span>Mission control</a>
+        <p class="nav-label">Platform</p>
+        <a href="#services" data-route="services" class="nav-item"><span>⇄</span>Services & security</a>
+        <a href="#multiregion" data-route="multiregion" class="nav-item"><span>◎</span>Multi-region</a>
+        <a href="#orchestration" data-route="orchestration" class="nav-item"><span>⤢</span>Orchestration</a>
+        <p class="nav-label">Project</p>
+        <a href="#evidence" data-route="evidence" class="nav-item"><span>✓</span>Evidence gallery</a>
+        <a href="#deployment" data-route="deployment" class="nav-item"><span>⌘</span>GitHub Pages</a>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="mini-gauge"><span>Browser-only</span><strong>100%</strong></div>
+        <div class="progress-track"><div class="progress-fill" style="width:100%"></div></div>
+        <small>No server, cloud account, or API key required.</small>
+      </div>
+    </aside>
+
+    <main id="main-content" tabindex="-1">
+      <section class="view active" id="view-overview" data-view="overview">
+        <div class="hero panel">
+          <div class="hero-copy">
+            <div class="eyebrow">A home-PC space engineering portfolio</div>
+            <h1>Explore a complete mission stack, <span>live in your browser.</span></h1>
+            <p>Orbit dynamics, spacecraft subsystems, constellations, Earth observation, service security, multi-region operations, workflow orchestration, and safety assurance—combined into one interactive GitHub Pages application.</p>
+            <div class="hero-actions">
+              <button class="button button-primary" data-go="orbit">Start with orbit simulation</button>
+              <button class="button button-secondary" data-go="evolution">Explore all 34 releases</button>
+            </div>
+            <div class="hero-facts"><span>Pure HTML/CSS/JS</span><span>Offline-capable</span><span>Responsive</span><span>Accessible controls</span></div>
+          </div>
+          <div class="hero-visual" aria-label="Animated spacecraft orbit overview">
+            <canvas id="heroCanvas" width="580" height="390"></canvas>
+            <div class="orbit-card orbit-card-a"><small>ALTITUDE</small><strong id="heroAltitude">550 km</strong></div>
+            <div class="orbit-card orbit-card-b"><small>GROUND SPEED</small><strong id="heroSpeed">7.59 km/s</strong></div>
+          </div>
+        </div>
+
+        <div class="kpi-grid">
+          <article class="kpi-card"><small>Release history</small><strong data-count="34">0</strong><span>versions and patch milestones</span></article>
+          <article class="kpi-card"><small>Verified core suite</small><strong data-count="203">0</strong><span>repository tests at v3.1</span></article>
+          <article class="kpi-card"><small>Interactive labs</small><strong data-count="10">0</strong><span>integrated browser modules</span></article>
+          <article class="kpi-card"><small>Safety model</small><strong data-count="256">0</strong><span>command-gate states checked</span></article>
+        </div>
+
+        <div class="two-column">
+          <article class="panel">
+            <div class="section-heading"><div><span class="eyebrow">Integrated scenario</span><h2>Live mission pulse</h2></div><button class="button button-ghost compact" id="overviewReset">Reset</button></div>
+            <div class="telemetry-grid" id="overviewTelemetry"></div>
+            <canvas class="chart" id="overviewChart" width="900" height="280" aria-label="Integrated mission telemetry chart"></canvas>
+          </article>
+          <article class="panel">
+            <div class="section-heading"><div><span class="eyebrow">Capability map</span><h2>From physics to governance</h2></div></div>
+            <div class="capability-map" id="capabilityMap"></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="view" id="view-evolution" data-view="evolution">
+        <div class="page-heading"><div><span class="eyebrow">Release explorer</span><h1>Evolution from v0.1 to v3.1</h1><p>Filter the development history, select any milestone, and inspect the capability it added.</p></div><div class="segmented" id="eraFilter"><button class="active" data-era="all">All</button><button data-era="foundation">Foundations</button><button data-era="mission">Mission</button><button data-era="platform">Platform</button><button data-era="assurance">Assurance</button></div></div>
+        <div class="release-layout">
+          <div class="release-timeline panel" id="releaseTimeline"></div>
+          <aside class="release-detail panel" id="releaseDetail" aria-live="polite"></aside>
+        </div>
+      </section>
+
+      <section class="view" id="view-orbit" data-view="orbit">
+        <div class="page-heading"><div><span class="eyebrow">v0.1–v0.3</span><h1>Interactive orbit laboratory</h1><p>Explore circular orbit geometry, velocity, period, inclination, ground track, and eclipse-like geometry.</p></div><div class="toolbar"><button class="button button-primary" id="orbitStart">Start</button><button class="button button-secondary" id="orbitReset">Reset</button></div></div>
+        <div class="lab-layout">
+          <aside class="panel controls-panel">
+            <h2>Orbit inputs</h2>
+            <label>Altitude <output id="altitudeOutput">550 km</output><input id="altitudeSlider" type="range" min="200" max="2000" value="550" step="10"></label>
+            <label>Inclination <output id="inclinationOutput">51.6°</output><input id="inclinationSlider" type="range" min="0" max="98" value="51.6" step="0.1"></label>
+            <label>Simulation speed <output id="orbitSpeedOutput">20×</output><input id="orbitSpeedSlider" type="range" min="1" max="100" value="20"></label>
+            <label class="switch-row"><span>Show ground track</span><input id="groundTrackToggle" type="checkbox" checked><span class="switch"></span></label>
+            <div class="formula-card"><strong>Model</strong><code>v = √(μ / r)</code><code>T = 2π√(r³ / μ)</code><small>Educational circular two-body approximation.</small></div>
+          </aside>
+          <div class="panel canvas-panel"><canvas id="orbitCanvas" width="1000" height="570" aria-label="Animated Earth orbit simulation"></canvas></div>
+        </div>
+        <div class="metric-row" id="orbitMetrics"></div>
+        <div class="two-column"><article class="panel"><h2>Ground track</h2><canvas class="chart" id="groundTrackCanvas" width="900" height="350"></canvas></article><article class="panel"><h2>Mission notes</h2><div class="event-console" id="orbitEvents"></div></article></div>
+      </section>
+
+      <section class="view" id="view-constellation" data-view="constellation">
+        <div class="page-heading"><div><span class="eyebrow">v1.3–v1.5</span><h1>Constellation and autonomous tasking</h1><p>Configure Walker-style slots, observe network links, and compare single-satellite versus constellation revisit.</p></div><button class="button button-primary" id="constellationRun">Rebuild constellation</button></div>
+        <div class="lab-layout">
+          <aside class="panel controls-panel"><h2>Constellation inputs</h2>
+            <label>Spacecraft <output id="satelliteCountOutput">6</output><input id="satelliteCount" type="range" min="1" max="12" value="6"></label>
+            <label>Orbital planes <output id="planeCountOutput">3</output><input id="planeCount" type="range" min="1" max="6" value="3"></label>
+            <label>Crosslink range <output id="crosslinkOutput">4200 km</output><input id="crosslinkRange" type="range" min="500" max="9000" value="4200" step="100"></label>
+            <label class="switch-row"><span>Autonomous duplicate suppression</span><input id="duplicateToggle" type="checkbox" checked><span class="switch"></span></label>
+            <div class="target-list" id="targetList"></div>
+          </aside>
+          <div class="panel canvas-panel"><canvas id="constellationCanvas" width="1000" height="570"></canvas></div>
+        </div>
+        <div class="metric-row" id="constellationMetrics"></div>
+        <article class="panel"><div class="section-heading"><div><h2>Coordinated imaging schedule</h2><p>Click a target to increase its priority.</p></div></div><div class="table-wrap"><table><thead><tr><th>Time</th><th>Target</th><th>Assigned satellite</th><th>Priority</th><th>Decision</th></tr></thead><tbody id="scheduleTable"></tbody></table></div></article>
+      </section>
+
+      <section class="view" id="view-earth-observation" data-view="earth-observation">
+        <div class="page-heading"><div><span class="eyebrow">v1.6–v1.9</span><h1>Earth-observation flood lab</h1><p>Create a deterministic synthetic scene, tune water/cloud thresholds, and inspect classification metrics.</p></div><div class="toolbar"><button class="button button-secondary" id="newScene">New scene</button><button class="button button-primary" id="classifyScene">Classify flood</button></div></div>
+        <div class="lab-layout earth-layout">
+          <aside class="panel controls-panel"><h2>Processing controls</h2>
+            <label>Water threshold <output id="waterThresholdOutput">0.46</output><input id="waterThreshold" type="range" min="0.20" max="0.80" value="0.46" step="0.01"></label>
+            <label>Cloud cover <output id="cloudCoverOutput">12%</output><input id="cloudCover" type="range" min="0" max="60" value="12"></label>
+            <label>SAR contribution <output id="sarWeightOutput">45%</output><input id="sarWeight" type="range" min="0" max="100" value="45"></label>
+            <label class="switch-row"><span>Temporal persistence</span><input id="persistenceToggle" type="checkbox" checked><span class="switch"></span></label>
+            <div class="legend"><span><i class="swatch land"></i>Land</span><span><i class="swatch water"></i>Permanent water</span><span><i class="swatch flood"></i>Detected flood</span><span><i class="swatch cloud"></i>Cloud mask</span></div>
+          </aside>
+          <div class="eo-canvases"><article class="panel"><h2>Optical/SAR composite</h2><canvas id="sceneCanvas" width="640" height="420"></canvas></article><article class="panel"><h2>Flood classification</h2><canvas id="classificationCanvas" width="640" height="420"></canvas></article></div>
+        </div>
+        <div class="metric-row" id="eoMetrics"></div>
+        <article class="panel"><h2>Processing pipeline</h2><div class="pipeline" id="eoPipeline"></div></article>
+      </section>
+
+      <section class="view" id="view-spacecraft" data-view="spacecraft">
+        <div class="page-heading"><div><span class="eyebrow">v0.4–v0.7</span><h1>Spacecraft subsystem digital twin</h1><p>Balance power, payload storage, temperature, downlink, attitude, and safe-mode thresholds over a simulated day.</p></div><button class="button button-primary" id="runSubsystems">Simulate 24 hours</button></div>
+        <div class="lab-layout">
+          <aside class="panel controls-panel"><h2>Operating profile</h2>
+            <label>Payload duty cycle <output id="payloadDutyOutput">28%</output><input id="payloadDuty" type="range" min="0" max="80" value="28"></label>
+            <label>Solar illumination <output id="solarOutput">72%</output><input id="solarIllumination" type="range" min="20" max="100" value="72"></label>
+            <label>Downlink capacity <output id="downlinkOutput">180 MB/day</output><input id="downlinkCapacity" type="range" min="20" max="500" value="180" step="10"></label>
+            <label>Initial battery <output id="batteryOutput">82%</output><input id="initialBattery" type="range" min="20" max="100" value="82"></label>
+            <div class="mode-buttons" id="spacecraftMode"><button data-mode="nominal" class="active">Nominal</button><button data-mode="science">Science</button><button data-mode="safe">Safe</button></div>
+          </aside>
+          <article class="panel"><div class="spacecraft-diagram" id="spacecraftDiagram"><div class="sat-body"><div class="sat-core">OSML-1</div><div class="solar-panel left"></div><div class="solar-panel right"></div></div></div><div class="subsystem-status" id="subsystemStatus"></div></article>
+        </div>
+        <div class="metric-row" id="spacecraftMetrics"></div>
+        <article class="panel"><canvas class="chart" id="subsystemChart" width="1200" height="400"></canvas></article>
+      </section>
+
+      <section class="view" id="view-mission-control" data-view="mission-control">
+        <div class="page-heading"><div><span class="eyebrow">v0.8–v1.2</span><h1>Mission control and hardware bridge</h1><p>Run a browser-side operations loop, queue authenticated commands, inject faults, and inspect alarm response.</p></div><div class="toolbar"><button class="button button-primary" id="opsStart">Start operations</button><button class="button button-secondary" id="opsClear">Clear log</button></div></div>
+        <div class="mission-grid">
+          <article class="panel"><h2>Live telemetry</h2><div class="telemetry-grid" id="opsTelemetry"></div><canvas class="chart" id="opsChart" width="900" height="320"></canvas></article>
+          <article class="panel"><h2>Command console</h2><div class="command-buttons"><button data-command="CAPTURE_IMAGE">Capture image</button><button data-command="START_DOWNLINK">Start downlink</button><button data-command="ENTER_SAFE_MODE">Enter safe mode</button><button data-command="RESET_WATCHDOG">Reset watchdog</button></div><label>Operator note<textarea id="commandNote" rows="3" placeholder="Reason for command"></textarea></label><div class="fault-buttons"><span>Inject fault:</span><button data-fault="sensor">Sensor</button><button data-fault="battery">Battery</button><button data-fault="link">Link</button></div></article>
+          <article class="panel span-two"><div class="section-heading"><div><h2>Operations event stream</h2><p>Local-only simulation. No real command path exists.</p></div><div class="status-pill"><span class="status-dot"></span><span id="opsState">IDLE</span></div></div><div class="event-console tall" id="opsEvents"></div></article>
+        </div>
+      </section>
+
+      <section class="view" id="view-services" data-view="services">
+        <div class="page-heading"><div><span class="eyebrow">v2.0–v2.7</span><h1>Services, security, and observability</h1><p>Exercise a simulated STAC API, policy decision point, tenant isolation, workload token, audit chain, and SLO monitor.</p></div><button class="button button-primary" id="sendApiRequest">Send request</button></div>
+        <div class="service-grid">
+          <article class="panel api-builder"><h2>API request builder</h2><div class="form-row"><label>Method<select id="apiMethod"><option>GET</option><option>POST</option></select></label><label>Tenant<select id="apiTenant"><option>mission-alpha</option><option>mission-beta</option><option>admin</option></select></label></div><label>Endpoint<select id="apiEndpoint"><option value="/api/v1/stac/search">/api/v1/stac/search</option><option value="/api/v1/jobs">/api/v1/jobs</option><option value="/api/v1/secrets">/api/v1/secrets</option><option value="/api/v1/audit/export">/api/v1/audit/export</option></select></label><label>Bearer token<input id="apiToken" value="osml_demo_scoped_token" spellcheck="false"></label><pre id="apiResponse" class="code-output">Ready.</pre></article>
+          <article class="panel"><h2>Policy evaluation</h2><div class="policy-flow" id="policyFlow"></div><div class="audit-chain" id="auditChain"></div></article>
+          <article class="panel span-two"><div class="section-heading"><div><h2>Runtime SLOs</h2><p>Intentional browser-side load pulses demonstrate error-budget burn.</p></div><button class="button button-secondary compact" id="injectLatency">Inject latency</button></div><div class="metric-row" id="sloMetrics"></div><canvas class="chart" id="sloChart" width="1200" height="330"></canvas></article>
+        </div>
+      </section>
+
+      <section class="view" id="view-multiregion" data-view="multiregion">
+        <div class="page-heading"><div><span class="eyebrow">v2.8–v2.9</span><h1>Governed multi-region operations</h1><p>Steer traffic across Bengaluru, Singapore, and Frankfurt using latency, health, cost, carbon, consistency, and sovereignty policy.</p></div><button class="button button-primary" id="routeTraffic">Route 100 requests</button></div>
+        <div class="lab-layout">
+          <aside class="panel controls-panel"><h2>Routing policy</h2>
+            <label>Latency priority <output id="latencyPriorityOutput">45%</output><input id="latencyPriority" type="range" min="0" max="100" value="45"></label>
+            <label>Carbon priority <output id="carbonPriorityOutput">30%</output><input id="carbonPriority" type="range" min="0" max="100" value="30"></label>
+            <label>Cost priority <output id="costPriorityOutput">25%</output><input id="costPriority" type="range" min="0" max="100" value="25"></label>
+            <label>Consistency<select id="consistencyPolicy"><option>Strong quorum</option><option>Bounded staleness</option><option>Eventual</option></select></label>
+            <label>Data residency<select id="residencyPolicy"><option>Global</option><option>India only</option><option>EU only</option></select></label>
+            <div class="region-actions"><button data-outage="blr">Toggle Bengaluru</button><button data-outage="sin">Toggle Singapore</button><button data-outage="fra">Toggle Frankfurt</button></div>
+          </aside>
+          <div class="panel canvas-panel"><canvas id="regionCanvas" width="1000" height="570"></canvas></div>
+        </div>
+        <div class="metric-row" id="regionMetrics"></div>
+        <div class="two-column"><article class="panel"><h2>Traffic decisions</h2><div class="table-wrap"><table><thead><tr><th>Region</th><th>Requests</th><th>Latency</th><th>Carbon</th><th>State</th></tr></thead><tbody id="regionTable"></tbody></table></div></article><article class="panel"><h2>Governance log</h2><div class="event-console" id="regionEvents"></div></article></div>
+      </section>
+
+      <section class="view" id="view-orchestration" data-view="orchestration">
+        <div class="page-heading"><div><span class="eyebrow">v3.0–v3.1</span><h1>Safety-assured mission orchestration</h1><p>Drive a replayable workflow through approval gates, signed evidence, command authorization, and compensation.</p></div><div class="toolbar"><button class="button button-secondary" id="workflowReject">Reject command</button><button class="button button-primary" id="workflowApprove">Approve safely</button></div></div>
+        <article class="panel"><div class="workflow-dag" id="workflowDag"></div></article>
+        <div class="orchestration-grid">
+          <article class="panel"><h2>Approval bundle</h2><div id="approvalBundle" class="approval-bundle"></div></article>
+          <article class="panel"><h2>Command safety gate</h2><div id="safetyGate" class="safety-gate"></div></article>
+          <article class="panel span-two"><div class="section-heading"><div><h2>Hash-chained workflow events</h2><p>Each simulated record links to the previous digest.</p></div><button class="button button-ghost compact" id="replayWorkflow">Replay</button></div><div class="event-console tall" id="workflowEvents"></div></article>
+        </div>
+        <div class="metric-row" id="workflowMetrics"></div>
+      </section>
+
+      <section class="view" id="view-evidence" data-view="evidence">
+        <div class="page-heading"><div><span class="eyebrow">Portfolio evidence</span><h1>Generated engineering artefacts</h1><p>Selected outputs from the Python project are included alongside the interactive web simulations.</p></div><div class="segmented" id="evidenceFilter"><button class="active" data-kind="all">All</button><button data-kind="mission">Mission</button><button data-kind="eo">Earth observation</button><button data-kind="platform">Platform</button><button data-kind="safety">Safety</button></div></div>
+        <div class="evidence-grid" id="evidenceGrid"></div>
+        <article class="panel"><div class="section-heading"><div><h2>Validation ledger</h2><p>Key acceptance milestones retained from the verified core project.</p></div></div><div class="table-wrap"><table><thead><tr><th>Release</th><th>Focus</th><th>Automated tests</th><th>Integrated controls</th><th>Status</th></tr></thead><tbody id="validationLedger"></tbody></table></div></article>
+      </section>
+
+      <section class="view" id="view-deployment" data-view="deployment">
+        <div class="page-heading"><div><span class="eyebrow">Deployment</span><h1>Publish with GitHub Pages</h1><p>The site is already arranged in the repository’s <code>/docs</code> directory and includes an optional Actions workflow.</p></div><a class="button button-primary" href="https://github.com/new" target="_blank" rel="noopener">Create GitHub repository</a></div>
+        <div class="deployment-grid">
+          <article class="panel step-card"><span>1</span><h2>Push the repository</h2><pre><code>git init
+git add .
+git commit -m "Launch OpenSat Mission Lab web edition"
+git branch -M main
+git remote add origin YOUR_REPOSITORY_URL
+git push -u origin main</code></pre><button class="copy-button">Copy</button></article>
+          <article class="panel step-card"><span>2</span><h2>Enable Pages</h2><p>Open <strong>Settings → Pages</strong>. Under “Build and deployment,” select <strong>Deploy from a branch</strong>, choose <strong>main</strong>, and select the <strong>/docs</strong> folder.</p><div class="deployment-choice"><strong>Source</strong><span>main /docs</span></div></article>
+          <article class="panel step-card"><span>3</span><h2>Open the live site</h2><p>Your public address will use this structure:</p><pre><code>https://YOUR_USERNAME.github.io/YOUR_REPOSITORY/</code></pre><p>Every module works without a Python server.</p></article>
+          <article class="panel step-card"><span>4</span><h2>Optional Actions deployment</h2><p>The included <code>.github/workflows/pages.yml</code> validates and deploys the static site whenever <code>main</code> changes.</p><pre><code>git add .github/workflows/pages.yml
+git commit -m "Enable Pages deployment"
+git push</code></pre><button class="copy-button">Copy</button></article>
+        </div>
+        <article class="panel"><h2>Static-site checks</h2><div class="deployment-checks" id="deploymentChecks"></div></article>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast-region" id="toastRegion" aria-live="polite"></div>
+  <dialog id="evidenceDialog"><button class="dialog-close" aria-label="Close">×</button><img alt=""><div><span class="eyebrow"></span><h2></h2><p></p></div></dialog>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/charts.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
